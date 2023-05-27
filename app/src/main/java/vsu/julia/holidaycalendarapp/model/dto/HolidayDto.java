@@ -1,0 +1,38 @@
+package vsu.julia.holidaycalendarapp.model.dto;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class HolidayDto {
+    private String name;
+
+    private String description;
+
+    @JsonProperty("date")
+    private DateDto dateDto;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public DateDto getDateDto() {
+        return dateDto;
+    }
+
+    public void setDateDto(DateDto dateDto) {
+        this.dateDto = dateDto;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+}
