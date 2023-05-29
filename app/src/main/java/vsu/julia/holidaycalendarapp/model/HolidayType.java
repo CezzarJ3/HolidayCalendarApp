@@ -5,7 +5,13 @@ public enum HolidayType {
     LOCAL("Местный"),
     RELIGIOUS("Религиозный");
     private final String holidayType;
+
     HolidayType(String holidayType) {
         this.holidayType = holidayType;
+    }
+
+    @Override
+    public String toString() {
+        return holidayType;
     }
 }

@@ -11,12 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 import vsu.julia.holidaycalendarapp.model.dto.HolidayDto;
+import vsu.julia.holidaycalendarapp.model.dto.JsonDto;
 
 @Component
 public class HolidayApiClient {
     private final RestTemplate restTemplate;
 
-    private final static String URL = "https://calendarific.com/api/v2";
+    private final static String URL = "https://calendarific.com/api/v2/holidays?";
     private final static String API_KEY = "50342769aff8652ae0838deb0c3b82286b012553";
 
     @Autowired
@@ -24,9 +25,8 @@ public class HolidayApiClient {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    public List<HolidayDto> getHolidays(String country, int year, int month, int day) {
-//        String url = String.format("https://calendarific.com/api/v2/holidays?api_key=%s&country=%s&year={year}&month={month}&day={day}",
-//                API_KEY);
+    public List<HolidayDto> getHolidaysByDate(String country, int year, int month, int day) {
+        String url = URL + "api_key={apiKei}&country={country}&year={year}&month={month}&day={day}";
 
         Map<String, Object> params = new HashMap<>();
         params.put("apiKey", API_KEY);
@@ -35,10 +35,10 @@ public class HolidayApiClient {
         params.put("month", month);
         params.put("day", day);
 
-        HolidayResponse response = restTemplate.getForObject(url, HolidayResponse.class, params);
+        JsonDto response = restTemplate.getForObject(url, JsonDto.class, params);
 
         if (response != null) {
-            return response.getHolidays();
+            return response.getResponseDto().getHolidayDtos();
         } else {
             return Collections.emptyList();
         }
