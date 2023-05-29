@@ -26,6 +26,22 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    packagingOptions{
+        exclude("META-INF/spring.tooling")
+        exclude("META-INF/INDEX.LIST")
+        exclude("META-INF/spring.handlers")
+        exclude("META-INF/spring-configuration-metadata.json")
+        exclude("META-INF/spring.factories")
+        exclude("META-INF/license.txt")
+        exclude("META-INF/DEPENDENCIES")
+        exclude("META-INF/web-fragment.xml")
+        exclude("META-INF/additional-spring-configuration-metadata.json")
+        exclude("META-INF/spring.schemas")
+        exclude("META-INF/notice.txt")
+        exclude("META-INF/spring/aot.factories")
+        exclude("META-INF/ASL2.0")
+    }
     buildFeatures {
         viewBinding true
     }
