@@ -1,8 +1,8 @@
 package vsu.julia.holidaycalendarapp.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.stereotype.Component;
+import android.os.AsyncTask;
+
+import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
@@ -13,16 +13,16 @@ import java.util.Map;
 import vsu.julia.holidaycalendarapp.model.dto.HolidayDto;
 import vsu.julia.holidaycalendarapp.model.dto.JsonDto;
 
-@Component
+//@Component
 public class HolidayApiClient {
     private final RestTemplate restTemplate;
 
     private final static String URL = "https://calendarific.com/api/v2/holidays?";
     private final static String API_KEY = "50342769aff8652ae0838deb0c3b82286b012553";
 
-    @Autowired
-    public HolidayApiClient(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
+    public HolidayApiClient(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+        restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
     }
 
     public List<HolidayDto> getHolidaysByDate(String country, int year, int month, int day) {
@@ -43,5 +43,39 @@ public class HolidayApiClient {
             return Collections.emptyList();
         }
     }
+
+    public HolidayDto getHoliday(String country, int year) {
+        String url = "https://calendarific.com/api/v2/holidays?api_key={apiKey}&country={country}&year={year}";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("apiKey", API_KEY);
+        params.put("country", country);
+        params.put("year", year);
+
+        JsonDto response = restTemplate.getForObject(url, JsonDto.class, params);
+
+        if (response != null) {
+            return response.getResponseDto().getHolidayDtos().get(0);
+        } else {
+            return null;
+        }
+    }
+
+//    class RetrieveHolidayTask extends AsyncTask<String, Void, HolidayDto> {
+//        private Exception exception;
+//
+//        @Override
+//        protected HolidayDto doInBackground(String... strings) {
+//            try {
+//
+//            } catch (Exception e) {
+//                this.exception = e;
+//
+//                return null;
+//            } finally {
+//
+//            }
+//        }
+//    }
 }
 

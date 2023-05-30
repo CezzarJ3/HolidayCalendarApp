@@ -10,9 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import org.springframework.web.client.RestTemplate;
+
 import java.util.List;
 
 import vsu.julia.holidaycalendarapp.databinding.FragmentFirstBinding;
+import vsu.julia.holidaycalendarapp.model.dto.HolidayDto;
+import vsu.julia.holidaycalendarapp.service.HolidayApiClient;
 import vsu.julia.holidaycalendarapp.sqldb.ISOCodesDbHandler;
 
 public class FirstFragment extends Fragment {
@@ -21,15 +25,21 @@ public class FirstFragment extends Fragment {
 
     private ISOCodesDbHandler isoCodesDbHandler;
 
+    private HolidayApiClient holidayApiClient;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         isoCodesDbHandler = new ISOCodesDbHandler(getContext());
+        holidayApiClient = new HolidayApiClient(new RestTemplate());
         fillCountrySpinner();
+
+        HolidayDto holidayDto = holidayApiClient.getHoliday("RU", 2023);
+        binding.holidayNamePlaceholer.setText(holidayDto.getName());
+        binding.holidayDescriptionPlaceholder.setText(holidayDto.getDescription());
         return binding.getRoot();
     }
 
@@ -37,8 +47,9 @@ public class FirstFragment extends Fragment {
         List<String> countries = isoCodesDbHandler.getAllCountries();
         String[] arraySpinner = countries.toArray(new String[0]);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, arraySpinner);
-        adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-        binding.countryInput.setAdapter(adapter);
+//        adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+        binding.countryAutoCompleteInput.setThreshold(1);
+        binding.countryAutoCompleteInput.setAdapter(adapter);
     }
 
 //    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
