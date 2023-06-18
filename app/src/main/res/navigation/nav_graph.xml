@@ -7,22 +7,27 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="vsu.julia.holidaycalendarapp.FirstFragment"
+        android:name="vsu.julia.holidaycalendarapp.HomeFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="vsu.julia.holidaycalendarapp.SecondFragment"
+        android:name="vsu.julia.holidaycalendarapp.HolidaysListFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_holidays_list"/>
+    <fragment
+        android:id="@+id/createHolidayFragment"
+        android:name="vsu.julia.holidaycalendarapp.CreateHolidayFragment"
+        android:label="Создать свой праздник"
+        tools:layout="@layout/fragment_create_holiday"/>
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="vsu.julia.holidaycalendarapp.CalendarFragment"
+        android:label="Календарь праздников"
+        tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/favouriteHolidaysFragment"
+        android:name="vsu.julia.holidaycalendarapp.FavouriteHolidaysFragment"
+        android:label="Избранное"
+        tools:layout="@layout/fragment_fv_holiday" />
 </navigation>

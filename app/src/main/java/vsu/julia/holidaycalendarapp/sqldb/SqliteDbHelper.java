@@ -4,20 +4,30 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 public class SqliteDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "ISOCodes.db";
+    public static final String DATABASE_NAME = "Holidays.db";
 
-    private static final String SQL_CREATE_TABLE =
-            "CREATE TABLE " + ISOCodeContract.ISOCodeEntry.TABLE_NAME + " ("
-                    + ISOCodeContract.ISOCodeEntry._ID + " INTEGER PRIMARY KEY, "
-                    + ISOCodeContract.ISOCodeEntry.CODE_COLUMN + " TEXT NOT NULL UNIQUE, "
-                    + ISOCodeContract.ISOCodeEntry.COUNTY_COLUMN + " TEXT NOT NULL UNIQUE);";
+    private static final String SQL_CREATE_IDO_CODES_TABLE =
+            "CREATE TABLE " + HolidayDBContract.ISOCodeEntry.TABLE_NAME + " ("
+                    + HolidayDBContract.ISOCodeEntry._ID + " INTEGER PRIMARY KEY, "
+                    + HolidayDBContract.ISOCodeEntry.CODE_COLUMN + " TEXT NOT NULL UNIQUE, "
+                    + HolidayDBContract.ISOCodeEntry.COUNTY_COLUMN + " TEXT NOT NULL UNIQUE);";
 
-    private static final String SQL_INSERT_VALUES =
-            "INSERT INTO " + ISOCodeContract.ISOCodeEntry.TABLE_NAME + " (" + ISOCodeContract.ISOCodeEntry.CODE_COLUMN + "," + ISOCodeContract.ISOCodeEntry.COUNTY_COLUMN + ")" +
+    private static final String SQL_CREATE_HOLIDAY_TABLE =
+            "CREATE TABLE " + HolidayDBContract.HolidayEntry.TABLE_NAME + " ("
+                    + HolidayDBContract.HolidayEntry._ID + " INTEGER PRIMARY KEY, "
+                    + HolidayDBContract.HolidayEntry.NAME_COLUMN + " TEXT NOT NULL, "
+                    + HolidayDBContract.HolidayEntry.DESCRIPTION_COLUMN + " TEXT NOT NULL, "
+                    + HolidayDBContract.HolidayEntry.COUNTRY_COLUMN + " TEXT NOT NULL, "
+                    + HolidayDBContract.HolidayEntry.DATE_COLUMN + " TEXT NOT NULL," +
+                    " UNIQUE (" + HolidayDBContract.HolidayEntry.NAME_COLUMN +
+                    ", " + HolidayDBContract.HolidayEntry.DESCRIPTION_COLUMN +
+                    ", " + HolidayDBContract.HolidayEntry.COUNTRY_COLUMN +
+                    ", " + HolidayDBContract.HolidayEntry.DATE_COLUMN + "));";
+
+    private static final String SQL_INSERT_ISO_VALUES =
+            "INSERT INTO " + HolidayDBContract.ISOCodeEntry.TABLE_NAME + " (" + HolidayDBContract.ISOCodeEntry.CODE_COLUMN + "," + HolidayDBContract.ISOCodeEntry.COUNTY_COLUMN + ")" +
                     " VALUES ('AF', 'Афганистан'),\n" +
                     "('AX', 'Аландские острова'),\n" +
                     "('AL', 'Албания'),\n" +
@@ -265,11 +275,17 @@ public class SqliteDbHelper extends SQLiteOpenHelper {
                     "('ZM', 'Замбия'),\n" +
                     "('ZW', 'Зимбабве');";
 
-    private static final String SQL_DELETE_TABLE =
-            "DROP TABLE IF EXISTS " + ISOCodeContract.ISOCodeEntry.TABLE_NAME + ";";
+    private static final String SQL_DELETE_ISO_TABLE =
+            "DROP TABLE IF EXISTS " + HolidayDBContract.ISOCodeEntry.TABLE_NAME + ";";
 
-    private static final String SQL_TRUNCATE_TABLE =
-            "DELETE FROM " + ISOCodeContract.ISOCodeEntry.TABLE_NAME + ";";
+    private static final String SQL_TRUNCATE_ISO_TABLE =
+            "DELETE FROM " + HolidayDBContract.ISOCodeEntry.TABLE_NAME + ";";
+
+    private static final String SQL_DELETE_HOLIDAY_TABLE =
+            "DROP TABLE IF EXISTS " + HolidayDBContract.HolidayEntry.TABLE_NAME + ";";
+
+    private static final String SQL_TRUNCATE_HOLIDAY_TABLE =
+            "DELETE FROM " + HolidayDBContract.HolidayEntry.TABLE_NAME + ";";
 
     public SqliteDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -277,8 +293,9 @@ public class SqliteDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_TABLE);
-        db.execSQL(SQL_INSERT_VALUES);
+        db.execSQL(SQL_CREATE_IDO_CODES_TABLE);
+        db.execSQL(SQL_INSERT_ISO_VALUES);
+        db.execSQL(SQL_CREATE_HOLIDAY_TABLE);
     }
 
     @Override

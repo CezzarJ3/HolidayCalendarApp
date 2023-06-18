@@ -2,11 +2,20 @@
     <string name="app_name">Holidays</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="first_fragment_label">Главная</string>
+    <string name="second_fragment_label">Список праздников</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="findHolidayLabel">Найти праздник</string>
     <string name="dateHint">DD/MM/YYYY</string>
     <string name="holidayDescription">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.  quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</string>
+    <string name="chooseDatePlaceholder">Выберите дату</string>
+    <string name="countryPlaceholder">Страна</string>
+    <string name="holidayPlaceholder">Holiday</string>
+    <string name="findHolidayButtonText">Найти праздник</string>
+    <string name="addToFavouriteButtonText">Добавить в избранное</string>
+    <string name="showFavouriteButtonText">Показать избранное</string>
+    <string name="addNewHolidayButtonText">Создать свой праздник</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="nameOfHoliday">Название праздника</string>
 </resources>

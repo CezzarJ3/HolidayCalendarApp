@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="mainOrange">#FFA100</color>
+    <color name="darkOrange">#9A6100</color>
+    <color name="popUpColor">#FF3C00</color>
 </resources>
